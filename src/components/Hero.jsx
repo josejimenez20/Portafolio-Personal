@@ -1,49 +1,46 @@
 import React from 'react';
 
-const Hero = () => {
+// Asegúrate de recibir { t } aquí arriba
+const Hero = ({ t }) => {
   return (
-    // Se ajustó el min-h y se eliminó el padding vertical en desktop (md:py-0) para un centrado perfecto.
-    <section id="inicio" className="w-full max-w-7xl mx-auto px-6 md:px-16 min-h-[calc(100vh-80px)] flex flex-col-reverse md:flex-row items-center justify-center md:justify-between gap-8 md:gap-12 py-8 md:py-0">
-      
-      {/* Columna Izquierda: Textos, Botones e Iconos */}
-      {/* Se redujo space-y-6 a space-y-5 para compactar un poco el bloque */}
+    <section id="inicio" className="w-full max-w-7xl mx-auto px-6 md:px-16 min-h-[calc(100vh-1px)] flex flex-col-reverse md:flex-row items-center justify-center md:justify-between gap-8 md:gap-12 py-8 md:py-0">
       <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left space-y-5">
         
-        {/* Etiqueta / Badge */}
+        {/* Etiqueta / Badge Dinámica */}
         <div className="bg-blue-50 text-blue-600 px-5 py-2 rounded-full text-sm font-semibold tracking-wide">
-          Desarrollador Web Full Stack
+          {t?.etiqueta}
         </div>
         
-        {/* Título Principal */}
+        {/* Título Principal Dinámico */}
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 leading-[1.1] tracking-tight">
-          Hola, soy <span className="text-blue-600">Heinar</span>.<br />
-          Construyo experiencias digitales.
+          {t?.saludo} <span className="text-blue-600">Heinar</span>.<br />
+          {t?.subtitulo}
         </h1>
         
-        {/* Descripción */}
+        {/* Descripción Dinámica */}
         <p className="text-base md:text-lg text-slate-600 leading-relaxed max-w-lg">
-          Especializado en crear aplicaciones web modernas, rápidas y escalables con las últimas tecnologías. Transformo ideas en realidad.
+          {t?.descripcion}
         </p>
         
-        {/* Botones */}
+        {/* Botones Dinámicos */}
         <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
-          {/* Botón Principal Azul Claro */}
+          {/* Botón Principal */}
           <a href="#contacto" className="bg-blue-300 hover:bg-blue-400 text-slate-900 font-semibold py-3 px-8 rounded-xl transition-all duration-300 shadow-md flex items-center gap-2">
-            Contactame
+            {t?.botonContacto}
           </a>
           
-          {/* Botón Secundario Blanco para descarga */}
+          {/* Botón Secundario para descarga */}
           <a 
             href="/cv-jimenezjose.pdf" 
             download="cv-jimenezjose.pdf"
             className="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-medium py-3 px-8 rounded-xl transition-all duration-300 shadow-sm flex items-center gap-2 w-fit"
           >
-            Descargar CV
+            {t?.botonCv}
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
           </a>
         </div>
 
-        {/* Contenedor de Iconos (Redes Sociales) */}
+        {/* Contenedor de Iconos (Redes Sociales) - Estos no cambian de idioma porque son íconos */}
         <div className="flex items-center justify-center md:justify-start gap-5 pt-2">
           {/* GitHub Icon */}
           <a href="https://github.com/josejimenez20" target="_blank" rel="noopener noreferrer" className="text-slate-700 hover:text-blue-600 transition-colors duration-300">
@@ -63,7 +60,6 @@ const Hero = () => {
       </div>
 
       {/* Columna Derecha: Imagen */}
-      {/* Se ajustaron los tamaños (w-64, md:w-80, lg:w-96) para asegurar que no empuje el contenido fuera de la pantalla */}
       <div className="w-full md:w-1/2 flex justify-center md:justify-end">
         <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full shadow-xl bg-slate-50/50 flex-shrink-0">
           <img 
