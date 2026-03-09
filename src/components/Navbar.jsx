@@ -5,7 +5,6 @@ const Navbar = () => {
     <nav className="w-full bg-white py-5 px-8 md:px-16 flex items-center justify-between sticky top-0 z-50 shadow-sm">
       {/* Logo */}
       <div className="text-2xl font-extrabold text-blue-600 tracking-tight cursor-pointer">
-        Portafolio.
       </div>
 
       <ul className="hidden md:flex space-x-8 text-slate-600 font-medium text-sm">

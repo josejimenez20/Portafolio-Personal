@@ -7,14 +7,14 @@ const About = () => {
 
        {/*  Fotos de sobre mi  */}
         <div className="w-full md:w-1/2">
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl transform -rotate-1 hover:rotate-0 transition-transform duration-500">
-            <img
-              src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=1000"
-              alt="Espacio de trabajo"
-              className="w-full h-auto object-cover"
-            />
-          </div>
-        </div>
+  <div className="relative rounded-2xl overflow-hidden shadow-2xl transform -rotate-1 hover:rotate-0 transition-transform duration-500">
+    <img
+      src="public/Laptop.jpeg"
+      alt="Espacio de trabajo"
+      className="w-full aspect-[4/5] md:aspect-square object-cover"
+    />
+  </div>
+</div>
 
       
         <div className="w-full md:w-1/2 flex flex-col items-start">
@@ -28,7 +28,7 @@ const About = () => {
           {/* Párrafos */}
           <div className="space-y-4 text-slate-600 leading-relaxed">
             <p>
-              Mi nombre es José Heinar Jiménez, me especializo en desarrollo web y me enfoco en crear soluciones tecnológicas, asi como tabien diseños atractivos y funcionales.
+              Mi nombre es José Heinar Jiménez, me especializo en desarrollo web y me enfoco en crear soluciones tecnológicas, asi como tambien diseños atractivos y funcionales.
             </p>
             <p>
               Mi pasión por la tecnología me ha llevado a explorar diversas áreas, desde el desarrollo hasta la arquitectura de software, siempre buscando aprender y mejorar mis habilidades para ofrecer lo mejor en cada proyecto.
