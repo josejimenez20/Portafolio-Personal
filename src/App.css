@@ -1,7 +1,43 @@
+/* ─── Animaciones personalizadas ─── */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
+@layer utilities {
+  /* Rotación lenta para el anillo decorativo */
+  .animate-spin-slow {
+    animation: spin 25s linear infinite;
+  }
+
+  /* Pulso lento para el badge */
+  .animate-pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+/* ─── Shimmer animation para las barras ─── */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+/* ─── Animación para el indicador activo del nav ─── */
+@keyframes scaleIn {
+  from {
+    transform: translateX(-50%) scaleX(0);
+  }
+  to {
+    transform: translateX(-50%) scaleX(1);
+  }
 }
