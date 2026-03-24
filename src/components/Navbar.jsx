@@ -35,14 +35,24 @@ const Navbar = ({ idioma, setIdioma, t, darkMode, setDarkMode }) => {
   useEffect(() => {
     const target = hoveredLink || activeSection;
     const el = linksRef.current[target];
+    
     if (el) {
-      setIndicatorStyle({
-        width: el.offsetWidth,
-        left: el.offsetLeft,
-        opacity: 1,
-      });
+      const updateIndicator = () => {
+        setIndicatorStyle({
+          width: el.offsetWidth,
+          left: el.offsetLeft,
+          opacity: 1,
+        });
+      };
+      
+      // Actualizamos inmediatamente y luego con un pequeño delay para asegurar
+      // que el DOM ya renderizó el texto nuevo (en inglés o español)
+      updateIndicator();
+      const timeoutId = setTimeout(updateIndicator, 50);
+      
+      return () => clearTimeout(timeoutId);
     }
-  }, [hoveredLink, activeSection]);
+  }, [hoveredLink, activeSection, idioma, t]);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
