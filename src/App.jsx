@@ -1,25 +1,56 @@
-import React, { useState } from 'react'; 
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
-import Footer from './components/Footer'; 
+import Footer from './components/Footer';
 import './App.css';
-import { contenido } from './components/traducciones'; 
+import { contenido } from './components/traducciones';
 
 function App() {
   const [idioma, setIdioma] = useState('es');
-  const t = contenido[idioma]; 
+  const t = contenido[idioma];
+  
+  // Dark mode: Inicializar el estado a partir de localStorage o usar true por defecto
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('darkMode');
+    if (saved !== null) return JSON.parse(saved);
+    return true; 
+  });
+
+  // Guardar el estado del modo oscuro en localStorage y actualizar las clases del documento
+  useEffect(() => {
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    } else {
+      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans">
-      <Navbar idioma={idioma} setIdioma={setIdioma} t={t.nav} />
-      <Hero t={t.hero} />
-      <About t={t.about} />
-      <Skills t={t.skills} />
-      <Projects t={t.projects} />
-      <Footer /> 
+    <div
+      className={`
+        min-h-screen font-sans transition-colors duration-700
+        ${darkMode ? 'bg-[#0a0a0a] text-slate-100' : 'bg-slate-50 text-slate-900'}
+      `}
+    >
+      <Navbar
+        idioma={idioma}
+        setIdioma={setIdioma}
+        t={t.nav}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+      />
+      <Hero t={t.hero} darkMode={darkMode} />
+      <About t={t.about} darkMode={darkMode} />
+      <Skills t={t.skills} darkMode={darkMode} />
+      <Projects t={t.projects} darkMode={darkMode} />
+      <Footer t={t.footer} darkMode={darkMode} />
     </div>
   );
 }

@@ -9,22 +9,6 @@ const portfolioProjects = [
     tech: ["Android Studio", "Java", "SQLite"],
     image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=800"
   },
-  /*  {
-    id: 2,
-    category: "Desarrollo Web",
-    title: "CH XPRESS Y ENVÍOS",
-    description: "Plataforma web para gestión integral de retail y logística de entregas a nivel nacional, optimizando rutas y seguimiento de paquetes.",
-    tech: ["React", "Laravel", "Tailwind CSS"],
-    image: "https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&q=80&w=800"
-  },
-  {
-    id: 3,
-    category: "Infraestructura",
-    title: "Topologías GNS3 & Servidores",
-    description: "Diseño, subnetting y despliegue de redes complejas empresariales. Administración y virtualización de servidores en entornos VMware.",
-    tech: ["GNS3", "VMware", "Routing"],
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=800"
-  }  */
 ];
 
 // ─── Iconos ──────────────────────────────────────────────────────
@@ -47,16 +31,14 @@ const FolderIcon = ({ className }) => (
 );
 
 // ─── Componente Principal ────────────────────────────────────────
-const Projects = ({ t }) => {
+const Projects = ({ t, darkMode }) => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
       { threshold: 0.1 }
     );
@@ -68,36 +50,53 @@ const Projects = ({ t }) => {
     <section
       ref={sectionRef}
       id="proyectos"
-      className="relative w-full bg-[#fafbff] py-28 overflow-hidden"
+      className={`
+        relative w-full py-28 overflow-hidden transition-colors duration-700
+        ${darkMode ? 'bg-[#0a0a0a]' : 'bg-[#fafbff]'}
+      `}
     >
-      {/* Fondo decorativo */}
-      <BackgroundDecoration />
+      <BackgroundDecoration darkMode={darkMode} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
 
-        {/* Encabezado */}
+        {/* ═══ Encabezado ═══ */}
         <div
           className={`
             text-center mb-20 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]
             ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
           `}
         >
-          <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-blue-600 px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase mb-6">
+          <div className={`
+            inline-flex items-center gap-2 border px-4 py-2 rounded-full
+            text-xs font-bold tracking-widest uppercase mb-6 transition-all duration-700
+            ${darkMode
+              ? 'bg-blue-500/10 border-blue-500/20 text-blue-400'
+              : 'bg-blue-50 border-blue-100 text-blue-600'
+            }
+          `}>
             <FolderIcon className="w-4 h-4" />
             Mi Portafolio
           </div>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-5 tracking-tight">
+
+          <h2 className={`
+            text-3xl md:text-5xl lg:text-6xl font-extrabold mb-5 tracking-tight transition-colors duration-700
+            ${darkMode ? 'text-white' : 'text-slate-900'}
+          `}>
             Proyectos{' '}
             <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent">
               Destacados
             </span>
           </h2>
-          <p className="text-slate-500 max-w-2xl mx-auto text-base md:text-lg leading-relaxed font-medium">
+
+          <p className={`
+            max-w-2xl mx-auto text-base md:text-lg leading-relaxed font-medium transition-colors duration-700
+            ${darkMode ? 'text-slate-400' : 'text-slate-500'}
+          `}>
             Una selección de mis trabajos más recientes. Cada proyecto representa un desafío único y una solución escalable.
           </p>
         </div>
 
-        {/* Grid de Proyectos */}
+        {/* ═══ Grid de Proyectos ═══ */}
         <div className={`
           grid grid-cols-1 ${portfolioProjects.length === 1 ? 'max-w-2xl mx-auto' : 'md:grid-cols-2 lg:grid-cols-3'} gap-8
         `}>
@@ -107,11 +106,12 @@ const Projects = ({ t }) => {
               project={project}
               index={index}
               isVisible={isVisible}
+              darkMode={darkMode}
             />
           ))}
         </div>
 
-        {/* Enlace a GitHub */}
+        {/* ═══ Enlace a GitHub ═══ */}
         <div
           className={`
             mt-20 text-center transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] delay-500
@@ -122,11 +122,17 @@ const Projects = ({ t }) => {
             href="https://github.com/josejimenez20?tab=repositories"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative inline-flex items-center gap-3 bg-slate-900 hover:bg-slate-800 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-500 shadow-lg shadow-slate-900/20 hover:shadow-xl hover:shadow-slate-900/30 hover:-translate-y-1 active:translate-y-0 overflow-hidden"
+            className={`
+              group relative inline-flex items-center gap-3 font-semibold
+              py-4 px-8 rounded-2xl transition-all duration-500
+              shadow-lg hover:shadow-xl hover:-translate-y-1 active:translate-y-0 overflow-hidden
+              ${darkMode
+                ? 'bg-white text-black hover:bg-slate-100 shadow-white/10 hover:shadow-white/20'
+                : 'bg-slate-900 hover:bg-slate-800 text-white shadow-slate-900/20 hover:shadow-slate-900/30'
+              }
+            `}
           >
-            {/* Shine */}
             <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
             <GithubIcon className="w-5 h-5 relative z-10" />
             <span className="relative z-10">Ver más en GitHub</span>
             <ArrowUpRight className="w-4 h-4 relative z-10 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -138,7 +144,7 @@ const Projects = ({ t }) => {
 };
 
 // ─── Tarjeta de Proyecto ─────────────────────────────────────────
-const ProjectCard = ({ project, index, isVisible }) => {
+const ProjectCard = ({ project, index, isVisible, darkMode }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -147,47 +153,58 @@ const ProjectCard = ({ project, index, isVisible }) => {
       onMouseLeave={() => setIsHovered(false)}
       style={{ transitionDelay: `${200 + index * 150}ms` }}
       className={`
-        group relative bg-white rounded-3xl overflow-hidden
-        border border-slate-200/80 flex flex-col
+        group relative rounded-3xl overflow-hidden border flex flex-col
         transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]
-        hover:shadow-2xl hover:shadow-blue-500/10
-        hover:-translate-y-2 hover:border-blue-200/50
+        hover:shadow-2xl hover:-translate-y-2
+        ${darkMode
+          ? 'bg-white/[0.03] border-white/[0.06] hover:border-blue-500/30 hover:shadow-blue-500/5'
+          : 'bg-white border-slate-200/80 hover:shadow-blue-500/10 hover:border-blue-200/50'
+        }
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}
       `}
     >
-      {/* Imagen */}
-      <div className="relative h-56 overflow-hidden bg-slate-100">
+      {/* ═══ Imagen ═══ */}
+      <div className={`
+        relative h-56 overflow-hidden
+        ${darkMode ? 'bg-white/[0.02]' : 'bg-slate-100'}
+      `}>
         <img
           src={project.image}
           alt={project.title}
           className={`
             w-full h-full object-cover transition-all duration-700 ease-out
             ${isHovered ? 'scale-110 blur-[1px]' : 'scale-100'}
+            ${darkMode ? 'brightness-75' : 'brightness-100'}
           `}
         />
 
-        {/* Overlay gradiente */}
         <div
           className={`
             absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/20 to-transparent
             transition-opacity duration-500
-            ${isHovered ? 'opacity-100' : 'opacity-0'}
+            ${isHovered ? 'opacity-100' : darkMode ? 'opacity-40' : 'opacity-0'}
           `}
         />
 
         {/* Categoría */}
         <div className="absolute top-4 left-4 z-10">
-          <span className="inline-flex items-center gap-1.5 bg-white/95 backdrop-blur-xl px-4 py-1.5 rounded-xl text-xs font-bold text-slate-700 shadow-lg shadow-slate-900/5 border border-white/50">
+          <span className={`
+            inline-flex items-center gap-1.5 backdrop-blur-xl px-4 py-1.5
+            rounded-xl text-xs font-bold shadow-lg border
+            ${darkMode
+              ? 'bg-white/10 text-white border-white/10 shadow-black/20'
+              : 'bg-white/95 text-slate-700 border-white/50 shadow-slate-900/5'
+            }
+          `}>
             <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
             {project.category}
           </span>
         </div>
 
-        {/* Número del proyecto */}
+        {/* Número */}
         <div
           className={`
-            absolute bottom-4 right-4 z-10
-            text-5xl font-black text-white/20
+            absolute bottom-4 right-4 z-10 text-5xl font-black text-white/20
             transition-all duration-500
             ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
           `}
@@ -196,33 +213,47 @@ const ProjectCard = ({ project, index, isVisible }) => {
         </div>
       </div>
 
-      {/* Contenido */}
+      {/* ═══ Contenido ═══ */}
       <div className="p-7 flex flex-col flex-grow">
-        {/* Título con hover effect */}
-        <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
+        <h3 className={`
+          text-xl font-bold mb-3 transition-colors duration-300
+          ${darkMode
+            ? 'text-white group-hover:text-blue-400'
+            : 'text-slate-900 group-hover:text-blue-600'
+          }
+        `}>
           {project.title}
         </h3>
 
-        {/* Descripción */}
-        <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">
+        <p className={`
+          text-sm leading-relaxed mb-6 flex-grow transition-colors duration-700
+          ${darkMode ? 'text-slate-400' : 'text-slate-500'}
+        `}>
           {project.description}
         </p>
 
         {/* Separador */}
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent mb-5" />
+        <div className={`
+          w-full h-px mb-5 transition-colors duration-700
+          ${darkMode
+            ? 'bg-gradient-to-r from-transparent via-white/[0.06] to-transparent'
+            : 'bg-gradient-to-r from-transparent via-slate-200 to-transparent'
+          }
+        `} />
 
         {/* Tecnologías */}
         <div className="flex flex-wrap gap-2">
           {project.tech.map((item, i) => (
             <span
               key={i}
-              className="
-                inline-flex items-center gap-1 bg-slate-50 text-slate-600
-                text-xs font-bold px-3 py-1.5 rounded-lg
-                border border-slate-100
-                group-hover:border-blue-100 group-hover:bg-blue-50/50 group-hover:text-blue-700
-                transition-all duration-300
-              "
+              className={`
+                inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5
+                rounded-lg border transition-all duration-300
+                ${darkMode
+                  ? 'bg-white/[0.04] text-slate-400 border-white/[0.06] group-hover:border-blue-500/20 group-hover:bg-blue-500/[0.06] group-hover:text-blue-400'
+                  : 'bg-slate-50 text-slate-600 border-slate-100 group-hover:border-blue-100 group-hover:bg-blue-50/50 group-hover:text-blue-700'
+                }
+              `}
             >
               <span className="w-1 h-1 rounded-full bg-current opacity-40" />
               {item}
@@ -231,7 +262,7 @@ const ProjectCard = ({ project, index, isVisible }) => {
         </div>
       </div>
 
-      {/* Borde inferior gradiente al hover */}
+      {/* Borde inferior gradiente */}
       <div
         className={`
           absolute bottom-0 left-0 right-0 h-1
@@ -245,30 +276,45 @@ const ProjectCard = ({ project, index, isVisible }) => {
 };
 
 // ─── Fondo decorativo ────────────────────────────────────────────
-const BackgroundDecoration = () => (
+const BackgroundDecoration = ({ darkMode }) => (
   <>
-    {/* Gradientes */}
-    <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-20 pointer-events-none"
-      style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%)' }}
-    />
-    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-15 pointer-events-none"
-      style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%)' }}
-    />
-
-    {/* Grid */}
     <div
-      className="absolute inset-0 opacity-[0.015] pointer-events-none"
+      className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none transition-opacity duration-700"
       style={{
+        background: darkMode
+          ? 'radial-gradient(circle, rgba(59,130,246,0.04) 0%, transparent 70%)'
+          : 'radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%)',
+        opacity: darkMode ? 0.6 : 0.2,
+      }}
+    />
+    <div
+      className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none transition-opacity duration-700"
+      style={{
+        background: darkMode
+          ? 'radial-gradient(circle, rgba(99,102,241,0.04) 0%, transparent 70%)'
+          : 'radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%)',
+        opacity: darkMode ? 0.5 : 0.15,
+      }}
+    />
+    <div
+      className="absolute inset-0 pointer-events-none transition-opacity duration-700"
+      style={{
+        opacity: darkMode ? 0.02 : 0.015,
         backgroundImage: `
-          linear-gradient(rgba(59,130,246,0.5) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(59,130,246,0.5) 1px, transparent 1px)
+          linear-gradient(${darkMode ? 'rgba(148,163,184,0.3)' : 'rgba(59,130,246,0.5)'} 1px, transparent 1px),
+          linear-gradient(90deg, ${darkMode ? 'rgba(148,163,184,0.3)' : 'rgba(59,130,246,0.5)'} 1px, transparent 1px)
         `,
         backgroundSize: '60px 60px',
       }}
     />
-
     {/* Línea decorativa superior */}
-    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+    <div className={`
+      absolute top-0 left-0 right-0 h-px transition-colors duration-700
+      ${darkMode
+        ? 'bg-gradient-to-r from-transparent via-white/[0.06] to-transparent'
+        : 'bg-gradient-to-r from-transparent via-slate-200 to-transparent'
+      }
+    `} />
   </>
 );
 

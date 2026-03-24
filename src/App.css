@@ -1,8 +1,76 @@
-/* ─── Animaciones personalizadas ─── */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* TRANSICIÓN GLOBAL DARK ↔ LIGHT*/
+@layer base {
+  *,
+  *::before,
+  *::after {
+    transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+    transition-duration: 500ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Evitar que las transiciones interfieran con animaciones */
+  [class*="animate-"],
+  [class*="transition-"] {
+    transition-property: all;
+  }
+
+  /* Scrollbar personalizada para dark mode */
+  html.dark {
+    color-scheme: dark;
+  }
+
+  html.dark::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  html.dark::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+
+  html.dark::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+  }
+
+  html.dark::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  /* Scrollbar para light mode */
+  html.light::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  html.light::-webkit-scrollbar-track {
+    background: #f8fafc;
+  }
+
+  html.light::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+
+  html.light::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+
+  /* Selección de texto */
+  html.dark ::selection {
+    background: rgba(59, 130, 246, 0.3);
+    color: white;
+  }
+
+  html.light ::selection {
+    background: rgba(59, 130, 246, 0.2);
+    color: #0f172a;
+  }
+}
+
+/* ─── Animaciones personalizadas ─── */
 @layer utilities {
   /* Rotación lenta para el anillo decorativo */
   .animate-spin-slow {
@@ -23,6 +91,7 @@
     opacity: 0.85;
   }
 }
+
 /* ─── Shimmer animation para las barras ─── */
 @keyframes shimmer {
   0% {
@@ -32,6 +101,7 @@
     transform: translateX(200%);
   }
 }
+
 /* ─── Animación para el indicador activo del nav ─── */
 @keyframes scaleIn {
   from {

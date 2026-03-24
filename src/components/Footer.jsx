@@ -25,12 +25,6 @@ const SendIcon = ({ className }) => (
   </svg>
 );
 
-const HeartIcon = ({ className }) => (
-  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
-    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-  </svg>
-);
-
 const ArrowUpIcon = ({ className }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
@@ -52,7 +46,7 @@ const NAV_LINKS = [
 ];
 
 // ─── Componente Principal ────────────────────────────────────────
-const Footer = () => {
+const Footer = ({ darkMode }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const footerRef = useRef(null);
@@ -82,28 +76,44 @@ const Footer = () => {
     <footer
       ref={footerRef}
       id="contacto"
-      className="relative w-full bg-slate-950 overflow-hidden"
+      className={`
+        relative w-full overflow-hidden transition-colors duration-700
+        ${darkMode ? 'bg-[#050505]' : 'bg-slate-950'}
+      `}
     >
-      {/* Decoración de fondo */}
-      <FooterBackground />
+      <FooterBackground darkMode={darkMode} />
 
-      {/* Línea superior gradiente */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
+      {/* Línea superior */}
+      <div className={`
+        absolute top-0 left-0 right-0 h-px
+        ${darkMode
+          ? 'bg-gradient-to-r from-transparent via-blue-500/30 to-transparent'
+          : 'bg-gradient-to-r from-transparent via-blue-500/50 to-transparent'
+        }
+      `} />
 
       {/* ─── CTA Section ─── */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16 pt-24 pb-16">
         <div
           className={`
-            relative bg-gradient-to-br from-slate-900 to-slate-900/50
-            border border-slate-800/80 rounded-3xl p-10 md:p-14
-            backdrop-blur-xl overflow-hidden
+            relative border rounded-3xl p-10 md:p-14 backdrop-blur-xl overflow-hidden
             transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]
+            ${darkMode
+              ? 'bg-gradient-to-br from-white/[0.03] to-white/[0.01] border-white/[0.06]'
+              : 'bg-gradient-to-br from-slate-900 to-slate-900/50 border-slate-800/80'
+            }
             ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
           `}
         >
-          {/* Glow dentro del CTA */}
-          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-60 h-60 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
+          {/* Glow */}
+          <div className={`
+            absolute top-0 right-0 w-80 h-80 rounded-full blur-3xl pointer-events-none
+            ${darkMode ? 'bg-blue-500/[0.03]' : 'bg-blue-500/5'}
+          `} />
+          <div className={`
+            absolute bottom-0 left-0 w-60 h-60 rounded-full blur-3xl pointer-events-none
+            ${darkMode ? 'bg-indigo-500/[0.03]' : 'bg-indigo-500/5'}
+          `} />
 
           <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
             <div className="max-w-xl">
@@ -118,7 +128,10 @@ const Footer = () => {
                   un proyecto?
                 </span>
               </h2>
-              <p className="text-slate-400 text-base md:text-lg leading-relaxed max-w-md">
+              <p className={`
+                text-base md:text-lg leading-relaxed max-w-md
+                ${darkMode ? 'text-slate-500' : 'text-slate-400'}
+              `}>
                 Si tienes una idea en mente o simplemente quieres saludar, ¡no dudes en contactarme!
               </p>
             </div>
@@ -152,11 +165,13 @@ const Footer = () => {
             <div className="text-2xl font-extrabold text-blue-500 tracking-tight cursor-pointer mb-4">
               H<span className="text-white">J</span>
             </div>
-            <p className="text-slate-500 text-sm leading-relaxed mb-6">
+            <p className={`
+              text-sm leading-relaxed mb-6
+              ${darkMode ? 'text-slate-600' : 'text-slate-500'}
+            `}>
               Desarrollador apasionado por crear experiencias digitales excepcionales y soluciones innovadoras.
             </p>
 
-            {/* Redes sociales */}
             <div className="flex items-center gap-3">
               {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => (
                 <a
@@ -165,7 +180,14 @@ const Footer = () => {
                   target={name !== 'Email' ? '_blank' : undefined}
                   rel={name !== 'Email' ? 'noopener noreferrer' : undefined}
                   aria-label={name}
-                  className="group p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-500 hover:text-blue-400 hover:border-blue-500/30 hover:bg-blue-500/10 hover:-translate-y-1 transition-all duration-300"
+                  className={`
+                    group p-2.5 rounded-xl border transition-all duration-300
+                    hover:text-blue-400 hover:border-blue-500/30 hover:bg-blue-500/10 hover:-translate-y-1
+                    ${darkMode
+                      ? 'bg-white/[0.03] border-white/[0.06] text-slate-600'
+                      : 'bg-slate-900/80 border-slate-800 text-slate-500'
+                    }
+                  `}
                 >
                   <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                 </a>
@@ -175,7 +197,10 @@ const Footer = () => {
 
           {/* Navegación */}
           <div>
-            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-5">
+            <h3 className={`
+              text-xs font-bold uppercase tracking-[0.2em] mb-5
+              ${darkMode ? 'text-slate-500' : 'text-slate-400'}
+            `}>
               Navegación
             </h3>
             <ul className="space-y-3">
@@ -183,7 +208,11 @@ const Footer = () => {
                 <li key={href}>
                   <a
                     href={href}
-                    className="group flex items-center gap-2 text-slate-500 hover:text-white text-sm font-medium transition-all duration-300"
+                    className={`
+                      group flex items-center gap-2 text-sm font-medium transition-all duration-300
+                      hover:text-white
+                      ${darkMode ? 'text-slate-600' : 'text-slate-500'}
+                    `}
                   >
                     <span className="w-0 group-hover:w-4 h-px bg-blue-500 transition-all duration-300" />
                     {label}
@@ -193,16 +222,22 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Info de contacto */}
+          {/* Contacto */}
           <div>
-            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-5">
+            <h3 className={`
+              text-xs font-bold uppercase tracking-[0.2em] mb-5
+              ${darkMode ? 'text-slate-500' : 'text-slate-400'}
+            `}>
               Contacto
             </h3>
             <ul className="space-y-3">
               <li>
                 <a
                   href="mailto:jimenezheinar8@gmail.com"
-                  className="text-slate-500 hover:text-white text-sm font-medium transition-colors duration-300"
+                  className={`
+                    text-sm font-medium transition-colors duration-300 hover:text-white
+                    ${darkMode ? 'text-slate-600' : 'text-slate-500'}
+                  `}
                 >
                   jimenezheinar8@gmail.com
                 </a>
@@ -212,7 +247,10 @@ const Footer = () => {
                   href="https://github.com/josejimenez20"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-500 hover:text-white text-sm font-medium transition-colors duration-300"
+                  className={`
+                    text-sm font-medium transition-colors duration-300 hover:text-white
+                    ${darkMode ? 'text-slate-600' : 'text-slate-500'}
+                  `}
                 >
                   github.com/josejimenez20
                 </a>
@@ -224,20 +262,18 @@ const Footer = () => {
         {/* ─── Bottom Bar ─── */}
         <div
           className={`
-            pt-8 border-t border-slate-800/80
-            flex flex-col sm:flex-row justify-between items-center gap-4
+            pt-8 border-t flex flex-col sm:flex-row justify-between items-center gap-4
             transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] delay-400
+            ${darkMode ? 'border-white/[0.04]' : 'border-slate-800/80'}
             ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
           `}
         >
-          <p className="text-slate-600 text-xs font-medium tracking-wide">
+          <p className={`
+            text-xs font-medium tracking-wide
+            ${darkMode ? 'text-slate-700' : 'text-slate-600'}
+          `}>
             © {new Date().getFullYear()} Heinar Jimenez. Todos los derechos reservados.
           </p>
-          {/* <p className="flex items-center gap-1.5 text-slate-600 text-xs font-medium">
-            Hecho con
-            <HeartIcon className="w-3.5 h-3.5 text-red-500 animate-pulse" />
-            desde El Salvador.
-          </p> */}
         </div>
       </div>
 
@@ -246,12 +282,13 @@ const Footer = () => {
         onClick={scrollToTop}
         aria-label="Volver arriba"
         className={`
-          fixed bottom-8 right-8 z-50 p-3 rounded-2xl
-          bg-white/10 backdrop-blur-xl border border-white/10
-          text-white hover:bg-blue-600 hover:border-blue-500
-          shadow-lg shadow-slate-900/50
-          transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
-          hover:-translate-y-1 hover:shadow-xl
+          fixed bottom-8 right-8 z-50 p-3 rounded-2xl backdrop-blur-xl border
+          text-white shadow-lg transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
+          hover:-translate-y-1 hover:shadow-xl hover:bg-blue-600 hover:border-blue-500
+          ${darkMode
+            ? 'bg-white/[0.06] border-white/[0.08] shadow-black/50'
+            : 'bg-white/10 border-white/10 shadow-slate-900/50'
+          }
           ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}
         `}
       >
@@ -262,20 +299,23 @@ const Footer = () => {
 };
 
 // ─── Fondo decorativo ────────────────────────────────────────────
-const FooterBackground = () => (
+const FooterBackground = ({ darkMode }) => (
   <>
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] opacity-10"
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px]"
         style={{
-          background: 'radial-gradient(ellipse, rgba(59,130,246,0.15) 0%, transparent 70%)',
+          background: darkMode
+            ? 'radial-gradient(ellipse, rgba(59,130,246,0.06) 0%, transparent 70%)'
+            : 'radial-gradient(ellipse, rgba(59,130,246,0.15) 0%, transparent 70%)',
+          opacity: darkMode ? 0.5 : 0.1,
         }}
       />
     </div>
-
     <div
-      className="absolute inset-0 opacity-[0.02] pointer-events-none"
+      className="absolute inset-0 pointer-events-none"
       style={{
+        opacity: darkMode ? 0.015 : 0.02,
         backgroundImage: `
           linear-gradient(rgba(148,163,184,0.3) 1px, transparent 1px),
           linear-gradient(90deg, rgba(148,163,184,0.3) 1px, transparent 1px)
