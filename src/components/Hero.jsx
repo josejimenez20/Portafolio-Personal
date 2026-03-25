@@ -33,7 +33,7 @@ const SOCIAL_LINKS = [
 ];
 
 // ─── Componente Principal ────────────────────────────────────────
-const Hero = ({ t, darkMode }) => {
+const Hero = ({ t, darkMode, openModal }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [typedText, setTypedText] = useState('');
@@ -87,7 +87,6 @@ const Hero = ({ t, darkMode }) => {
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex flex-col-reverse lg:flex-row items-center justify-center lg:justify-between gap-10 lg:gap-16">
 
-        {/* Columna Izquierda */}
         <div
           className={`
             w-full lg:w-[55%] flex flex-col items-center lg:items-start
@@ -99,11 +98,10 @@ const Hero = ({ t, darkMode }) => {
           <Badge text={t?.etiqueta} darkMode={darkMode} />
           <Heading saludo={t?.saludo} typedText={typedText} darkMode={darkMode} />
           <Description text={t?.descripcion} darkMode={darkMode} />
-          <ActionButtons contactText={t?.botonContacto} cvText={t?.botonCv} darkMode={darkMode} />
-          <SocialLinks darkMode={darkMode} />
+          <ActionButtons contactText={t?.botonContacto} cvText={t?.botonCv} darkMode={darkMode} openModal={openModal} />
+          <SocialLinks darkMode={darkMode} openModal={openModal} />
         </div>
 
-        {/* Columna Derecha */}
         <div
           className={`
             w-full lg:w-[45%] flex justify-center lg:justify-end
@@ -125,7 +123,6 @@ const Hero = ({ t, darkMode }) => {
 const BackgroundDecoration = ({ mousePos, darkMode }) => (
   <>
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* ═══ Orbe superior derecho ═══ */}
       <div
         className="absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full transition-opacity duration-700"
         style={{
@@ -137,7 +134,6 @@ const BackgroundDecoration = ({ mousePos, darkMode }) => (
           transition: 'transform 0.3s ease-out, opacity 0.7s ease',
         }}
       />
-      {/* ═══ Orbe inferior izquierdo ═══ */}
       <div
         className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full transition-opacity duration-700"
         style={{
@@ -149,7 +145,6 @@ const BackgroundDecoration = ({ mousePos, darkMode }) => (
           transition: 'transform 0.3s ease-out, opacity 0.7s ease',
         }}
       />
-      {/* ═══ Orbe central ═══ */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
         style={{
@@ -161,7 +156,6 @@ const BackgroundDecoration = ({ mousePos, darkMode }) => (
       />
     </div>
 
-    {/* ═══ Grid de fondo ═══ */}
     <div
       className="absolute inset-0 pointer-events-none transition-opacity duration-700"
       style={{
@@ -174,7 +168,6 @@ const BackgroundDecoration = ({ mousePos, darkMode }) => (
       }}
     />
 
-    {/* ═══ Partículas flotantes ═══ */}
     {[...Array(6)].map((_, i) => (
       <div
         key={i}
@@ -291,11 +284,10 @@ const Description = ({ text, darkMode }) => (
   </p>
 );
 
-const ActionButtons = ({ contactText, cvText, darkMode }) => (
+const ActionButtons = ({ contactText, cvText, darkMode, openModal }) => (
   <div className="flex flex-wrap justify-center lg:justify-start gap-3 pt-1">
-    {/* ═══ Botón primario (sin cambios, gradiente funciona en ambos) ═══ */}
-    <a
-      href="#contacto"
+    <button
+      onClick={openModal}
       className="group relative inline-flex items-center gap-2 overflow-hidden font-semibold py-3 px-7 rounded-2xl text-white text-sm transition-all duration-500 shadow-xl shadow-blue-500/20 hover:shadow-2xl hover:shadow-blue-500/30 hover:-translate-y-1 active:translate-y-0"
     >
       <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 transition-all duration-500" />
@@ -305,9 +297,8 @@ const ActionButtons = ({ contactText, cvText, darkMode }) => (
       <span className="relative z-10 inline-block transition-transform duration-300 group-hover:translate-x-1.5 text-base">
         →
       </span>
-    </a>
+    </button>
 
-    {/* ═══ Botón secundario - Adaptado a dark ═══ */}
     <a
       href="/CV-JIMENEZ-JOSE.pdf"
       download="CV-JIMENEZ-JOSE.pdf"
@@ -327,27 +318,44 @@ const ActionButtons = ({ contactText, cvText, darkMode }) => (
   </div>
 );
 
-const SocialLinks = ({ darkMode }) => (
+const SocialLinks = ({ darkMode, openModal }) => (
   <div className="flex items-center justify-center lg:justify-start gap-3 pt-2">
-    {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => (
-      <a
-        key={name}
-        href={href}
-        target={name !== 'Email' ? '_blank' : undefined}
-        rel={name !== 'Email' ? 'noopener noreferrer' : undefined}
-        aria-label={name}
-        className={`
-          group relative p-3 rounded-xl border transition-all duration-300
-          hover:-translate-y-1.5 hover:shadow-lg
-          ${darkMode
-            ? 'bg-white/[0.04] border-white/[0.08] text-slate-500 hover:text-blue-400 hover:border-blue-500/30 hover:bg-blue-500/[0.08] hover:shadow-blue-500/10'
-            : 'bg-white border-slate-200/80 text-slate-400 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50 hover:shadow-blue-500/10'
-          }
-        `}
-      >
-        <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
-      </a>
-    ))}
+    {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => {
+      const iconClasses = `
+        group relative p-3 rounded-xl border transition-all duration-300
+        hover:-translate-y-1.5 hover:shadow-lg
+        ${darkMode
+          ? 'bg-white/[0.04] border-white/[0.08] text-slate-500 hover:text-blue-400 hover:border-blue-500/30 hover:bg-blue-500/[0.08] hover:shadow-blue-500/10'
+          : 'bg-white border-slate-200/80 text-slate-400 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50 hover:shadow-blue-500/10'
+        }
+      `;
+
+      if (name === 'Email') {
+        return (
+          <button
+            key={name}
+            onClick={openModal}
+            aria-label="Contactar por correo"
+            className={iconClasses}
+          >
+            <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+          </button>
+        );
+      }
+
+      return (
+        <a
+          key={name}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={name}
+          className={iconClasses}
+        >
+          <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+        </a>
+      );
+    })}
     <div
       className={`
         w-12 h-px ml-2 transition-colors duration-700
@@ -362,7 +370,6 @@ const SocialLinks = ({ darkMode }) => (
 
 const ProfileImage = ({ mousePos, darkMode }) => (
   <div className="relative group">
-    {/* ═══ Glow ═══ */}
     <div
       className="absolute -inset-6 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-1000 blur-3xl"
       style={{
@@ -372,7 +379,6 @@ const ProfileImage = ({ mousePos, darkMode }) => (
       }}
     />
 
-    {/* ═══ Anillo orbital ═══ */}
     <div
       className={`
         absolute -inset-5 rounded-full border border-dashed transition-colors duration-700
@@ -383,7 +389,6 @@ const ProfileImage = ({ mousePos, darkMode }) => (
       <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-blue-500 rounded-full shadow-lg shadow-blue-500/50" />
     </div>
 
-    {/* ═══ Segundo anillo ═══ */}
     <div
       className={`
         absolute -inset-8 rounded-full border border-dotted transition-colors duration-700
@@ -392,7 +397,6 @@ const ProfileImage = ({ mousePos, darkMode }) => (
       style={{ animation: 'spin-slow 40s linear infinite reverse' }}
     />
 
-    {/* ═══ Imagen ═══ */}
     <div
       className={`
         relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80

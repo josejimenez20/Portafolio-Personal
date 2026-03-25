@@ -5,12 +5,15 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Footer from './components/Footer';
+import ContactModal from './components/ContactModal';
 import './App.css';
 import { contenido } from './components/traducciones';
 
 function App() {
   const [idioma, setIdioma] = useState('es');
   const t = contenido[idioma];
+  // Estado para controlar la visibilidad del modal de contacto
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   // Dark mode: Inicializar el estado a partir de localStorage o usar true por defecto
   const [darkMode, setDarkMode] = useState(() => {
@@ -46,11 +49,40 @@ function App() {
         darkMode={darkMode}
         setDarkMode={setDarkMode}
       />
-      <Hero t={t.hero} darkMode={darkMode} />
+      <Hero t={t.hero} darkMode={darkMode} openModal={() => setIsModalOpen(true)} />
       <About t={t.about} darkMode={darkMode} />
       <Skills t={t.skills} darkMode={darkMode} />
       <Projects t={t.projects} darkMode={darkMode} />
-      <Footer t={t.footer} darkMode={darkMode} />
+      <Footer t={t.footer} darkMode={darkMode} openModal={() => setIsModalOpen(true)} />
+        <ContactModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        darkMode={darkMode} 
+      />
+  {/* // Alertas para mandar correo */}
+    <Hero 
+        t={t.hero} 
+        darkMode={darkMode} 
+        openModal={() => setIsModalOpen(true)} 
+      />
+      
+      <About t={t.about} darkMode={darkMode} />
+      <Skills t={t.skills} darkMode={darkMode} />
+      <Projects t={t.projects} darkMode={darkMode} />
+      
+      
+      <Footer 
+        t={t.footer} 
+        darkMode={darkMode} 
+        openModal={() => setIsModalOpen(true)} 
+      />
+
+      
+      <ContactModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        darkMode={darkMode} 
+      />
     </div>
   );
 }

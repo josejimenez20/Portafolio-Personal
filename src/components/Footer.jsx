@@ -46,7 +46,7 @@ const NAV_LINKS = [
 ];
 
 // ─── Componente Principal ────────────────────────────────────────
-const Footer = ({ darkMode }) => {
+const Footer = ({ darkMode, openModal }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const footerRef = useRef(null);
@@ -136,8 +136,8 @@ const Footer = ({ darkMode }) => {
               </p>
             </div>
 
-            <a
-              href="mailto:jimenezheinar8@gmail.com"
+            <button
+              onClick={openModal}
               className="group relative inline-flex items-center gap-3 overflow-hidden font-semibold py-4 px-8 rounded-2xl text-white transition-all duration-500 shadow-xl shadow-blue-500/20 hover:shadow-2xl hover:shadow-blue-500/30 hover:-translate-y-1 active:translate-y-0 shrink-0"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600" />
@@ -146,7 +146,7 @@ const Footer = ({ darkMode }) => {
               <MailIcon className="w-5 h-5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
               <span className="relative z-10">Envíame un correo</span>
               <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">→</span>
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -173,25 +173,45 @@ const Footer = ({ darkMode }) => {
             </p>
 
             <div className="flex items-center gap-3">
-              {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => (
-                <a
-                  key={name}
-                  href={href}
-                  target={name !== 'Email' ? '_blank' : undefined}
-                  rel={name !== 'Email' ? 'noopener noreferrer' : undefined}
-                  aria-label={name}
-                  className={`
-                    group p-2.5 rounded-xl border transition-all duration-300
-                    hover:text-blue-400 hover:border-blue-500/30 hover:bg-blue-500/10 hover:-translate-y-1
-                    ${darkMode
-                      ? 'bg-white/[0.03] border-white/[0.06] text-slate-600'
-                      : 'bg-slate-900/80 border-slate-800 text-slate-500'
-                    }
-                  `}
-                >
-                  <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
-                </a>
-              ))}
+              {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => {
+                // Guardamos las clases en una variable para no repetir código
+                const iconClasses = `
+                  group p-2.5 rounded-xl border transition-all duration-300
+                  hover:text-blue-400 hover:border-blue-500/30 hover:bg-blue-500/10 hover:-translate-y-1
+                  ${darkMode
+                    ? 'bg-white/[0.03] border-white/[0.06] text-slate-600'
+                    : 'bg-slate-900/80 border-slate-800 text-slate-500'
+                  }
+                `;
+
+                // Si es el icono de Email, usamos un botón que llama a openModal
+                if (name === 'Email') {
+                  return (
+                    <button
+                      key={name}
+                      onClick={openModal}
+                      aria-label="Contactar por correo"
+                      className={iconClasses}
+                    >
+                      <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                    </button>
+                  );
+                }
+
+                // Si es GitHub o LinkedIn, dejamos el enlace normal
+                return (
+                  <a
+                    key={name}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={name}
+                    className={iconClasses}
+                  >
+                    <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                  </a>
+                );
+              })}
             </div>
           </div>
 
@@ -232,15 +252,15 @@ const Footer = ({ darkMode }) => {
             </h3>
             <ul className="space-y-3">
               <li>
-                <a
-                  href="mailto:jimenezheinar8@gmail.com"
+                <button
+                  onClick={openModal}
                   className={`
-                    text-sm font-medium transition-colors duration-300 hover:text-white
+                    text-sm font-medium transition-colors duration-300 hover:text-white text-left
                     ${darkMode ? 'text-slate-600' : 'text-slate-500'}
                   `}
                 >
                   jimenezheinar8@gmail.com
-                </a>
+                </button>
               </li>
               <li>
                 <a
