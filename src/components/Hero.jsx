@@ -430,9 +430,11 @@ const ProfileImage = ({ mousePos, darkMode }) => (
   </div>
 );
 
+
+// El ScrollIndicator está actualmente deshabilitado, pero lo dejo aquí para futuras mejoras
 const ScrollIndicator = ({ darkMode }) => (
   <a
-    href="#sobre-mi"
+   /*  href="#sobre-mi"
     aria-label="Scroll hacia abajo"
     className={`
       absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-2
@@ -441,14 +443,14 @@ const ScrollIndicator = ({ darkMode }) => (
         ? 'text-slate-600 hover:text-blue-400'
         : 'text-slate-400 hover:text-blue-500'
       }
-    `}
+    `} */
   >
-    <div className="w-5 h-8 rounded-full border-2 border-current p-0.5 flex justify-center">
+    {/* <div className="w-5 h-8 rounded-full border-2 border-current p-0.5 flex justify-center">
       <div className="w-1 h-2 bg-current rounded-full animate-bounce" />
     </div>
     <span className="text-[9px] font-bold tracking-[0.2em] uppercase group-hover:tracking-[0.3em] transition-all duration-300">
       Scroll
-    </span>
+    </span> */}
   </a>
 );
 

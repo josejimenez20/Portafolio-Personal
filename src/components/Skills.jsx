@@ -65,10 +65,11 @@ const useAnimatedWidth = (percentage, isInView) => {
 };
 
 // ─── Datos de Categorías de Skills ───────────────────────────────
-const getSkillCategories = (darkMode) => [
+// Modificado para aceptar 't' y traducir los títulos
+const getSkillCategories = (t, darkMode) => [
   {
     id: 'frontend',
-    title: 'Frontend',
+    title: t?.frontend || 'Frontend',
     icon: MonitorIcon,
     color: {
       bg: 'bg-blue-500',
@@ -87,7 +88,7 @@ const getSkillCategories = (darkMode) => [
   },
   {
     id: 'backend',
-    title: 'Backend',
+    title: t?.backend || 'Backend',
     icon: ServerIcon,
     color: {
       bg: 'bg-emerald-500',
@@ -106,7 +107,7 @@ const getSkillCategories = (darkMode) => [
   },
   {
     id: 'tools',
-    title: 'Herramientas',
+    title: t?.herramientas || 'Herramientas',
     icon: CodeIcon,
     color: {
       bg: 'bg-purple-500',
@@ -126,7 +127,8 @@ const getSkillCategories = (darkMode) => [
 // ─── Componente Principal ────────────────────────────────────────
 const Skills = ({ t, darkMode }) => {
   const [sectionRef, isInView] = useInView();
-  const SKILL_CATEGORIES = getSkillCategories(darkMode);
+  // Se pasa 't' a la función de categorías
+  const SKILL_CATEGORIES = getSkillCategories(t, darkMode);
 
   return (
     <section
@@ -153,6 +155,7 @@ const Skills = ({ t, darkMode }) => {
               isInView={isInView}
               delay={index * 150}
               darkMode={darkMode}
+              t={t}
             />
           ))}
         </div>
@@ -246,7 +249,7 @@ const SectionHeader = ({ isInView, t, darkMode }) => (
   </div>
 );
 
-const SkillCard = ({ category, isInView, delay, darkMode }) => {
+const SkillCard = ({ category, isInView, delay, darkMode, t }) => {
   const { title, icon: Icon, color, skills } = category;
 
   return (
@@ -301,7 +304,7 @@ const SkillCard = ({ category, isInView, delay, darkMode }) => {
         ))}
       </div>
 
-      {/* Total */}
+      {/* Total - Traducido con t.conteo */}
       <div className={`
         mt-6 pt-4 border-t relative z-10 transition-colors duration-700
         ${darkMode ? 'border-white/[0.06]' : 'border-slate-100'}
@@ -310,7 +313,7 @@ const SkillCard = ({ category, isInView, delay, darkMode }) => {
           text-xs font-medium tracking-wide transition-colors duration-700
           ${darkMode ? 'text-slate-500' : 'text-slate-400'}
         `}>
-          {skills.length} {skills.length === 1 ? 'habilidad' : 'habilidades'}
+          {skills.length} {t?.conteo || 'habilidades'}
         </span>
       </div>
     </div>
