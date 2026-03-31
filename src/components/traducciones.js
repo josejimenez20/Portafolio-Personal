@@ -5,6 +5,7 @@ export const contenido = {
       sobreMi: "Sobre mí", 
       habilidades: "Habilidades", 
       proyectos: "Proyectos", 
+      certificados: "Certificados",
       contacto: "Contacto" 
     },
     hero: {
@@ -34,6 +35,12 @@ export const contenido = {
       backend: "Backend",
       herramientas: "Herramientas",
       conteo: "habilidades"
+    },
+    certificates: {
+      etiqueta: "Logros y Reconocimientos",
+      titulo: "Certificaciones Académicas",
+      subtitulo: "Diplomas y certificaciones que respaldan mi formación en Ingeniería y Desarrollo.",
+      verCredencial: "Ver Credencial"
     }
   },
   en: {
@@ -42,6 +49,7 @@ export const contenido = {
       sobreMi: "About", 
       habilidades: "Skills", 
       proyectos: "Projects", 
+      certificados: "Certificates",
       contacto: "Contact" 
     },
     hero: {
@@ -71,6 +79,12 @@ export const contenido = {
       backend: "Backend",
       herramientas: "Tools",
       conteo: "skills"
+    },
+    certificates: {
+      etiqueta: "Achievements & Awards",
+      titulo: "Academic Certifications",
+      subtitulo: "Diplomas and certifications that support my training in Engineering and Development.",
+      verCredencial: "View Credential"
     }
   }
 };

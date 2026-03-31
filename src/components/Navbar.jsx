@@ -15,7 +15,7 @@ const Navbar = ({ idioma, setIdioma, t, darkMode, setDarkMode }) => {
   }, []);
 
   useEffect(() => {
-    const sections = ['inicio', 'sobre-mi', 'habilidades', 'proyectos', 'contacto'];
+    const sections = ['inicio', 'sobre-mi', 'habilidades', 'proyectos', 'certificados', 'contacto'];
     const handleScroll = () => {
       for (const id of sections) {
         const el = document.getElementById(id);
@@ -64,6 +64,7 @@ const Navbar = ({ idioma, setIdioma, t, darkMode, setDarkMode }) => {
     { href: '#sobre-mi', label: t?.sobreMi, id: 'sobre-mi' },
     { href: '#habilidades', label: t?.habilidades, id: 'habilidades' },
     { href: '#proyectos', label: t?.proyectos, id: 'proyectos' },
+    { href: '#certificados', label: t?.certificados, id: 'certificados' },
     { href: '#contacto', label: t?.contacto, id: 'contacto' },
   ];
 
@@ -88,10 +89,10 @@ const Navbar = ({ idioma, setIdioma, t, darkMode, setDarkMode }) => {
           `}
         />
 
-        <div className="relative max-w-6xl mx-auto px-6 md:px-10 flex items-center justify-between">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between">
 
           {/* ═══ LOGO ═══ */}
-          <a href="#inicio" className="relative group">
+          <a href="#inicio" className="relative group shrink-0">
             <div className="text-2xl font-extrabold tracking-tight cursor-pointer transition-colors duration-500">
               <span className="text-blue-500">H</span>
               <span className={darkMode ? 'text-white' : 'text-slate-900'}>J</span>
@@ -100,10 +101,10 @@ const Navbar = ({ idioma, setIdioma, t, darkMode, setDarkMode }) => {
           </a>
 
           {/* ═══ CENTRO - Links Desktop ═══ */}
-          <div className="hidden md:block absolute left-1/2 -translate-x-1/2">
+          <div className="hidden md:flex flex-1 justify-center mx-2 lg:mx-4 overflow-hidden">
             <div
               className={`
-                relative flex items-center gap-1 rounded-2xl px-2 py-1.5 transition-all duration-700
+                relative flex items-center gap-0.5 lg:gap-1 rounded-2xl p-1 lg:px-2 lg:py-1.5 transition-all duration-700
                 ${scrolled
                   ? darkMode
                     ? 'bg-white/[0.06] border border-white/[0.08]'
@@ -139,7 +140,7 @@ const Navbar = ({ idioma, setIdioma, t, darkMode, setDarkMode }) => {
                   href={link.href}
                   onMouseEnter={() => setHoveredLink(link.id)}
                   className={`
-                    relative z-10 px-4 py-2 rounded-xl text-[13px] font-semibold tracking-wide transition-colors duration-300
+                    relative z-10 px-2.5 lg:px-4 py-2 rounded-xl text-xs lg:text-[13px] whitespace-nowrap font-semibold tracking-wide transition-colors duration-300
                     ${activeSection === link.id
                       ? darkMode ? 'text-white' : 'text-slate-900'
                       : darkMode ? 'text-slate-500 hover:text-slate-300' : 'text-slate-400 hover:text-slate-700'
@@ -153,7 +154,7 @@ const Navbar = ({ idioma, setIdioma, t, darkMode, setDarkMode }) => {
           </div>
 
           {/* ═══ DERECHA - Toggle + Idioma ═══ */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2 lg:gap-3 shrink-0">
 
             {/* Toggle Dark/Light */}
             <button
@@ -219,7 +220,7 @@ const Navbar = ({ idioma, setIdioma, t, darkMode, setDarkMode }) => {
               <button
                 onClick={() => setIdioma('es')}
                 className={`
-                  relative z-10 px-3.5 py-1.5 text-xs font-bold tracking-wider transition-colors duration-300
+                  relative z-10 px-3 py-1.5 lg:px-3.5 text-xs font-bold tracking-wider transition-colors duration-300
                   ${idioma === 'es'
                     ? darkMode ? 'text-white' : 'text-slate-900'
                     : darkMode ? 'text-slate-500' : 'text-slate-400'
@@ -231,7 +232,7 @@ const Navbar = ({ idioma, setIdioma, t, darkMode, setDarkMode }) => {
               <button
                 onClick={() => setIdioma('en')}
                 className={`
-                  relative z-10 px-3.5 py-1.5 text-xs font-bold tracking-wider transition-colors duration-300
+                  relative z-10 px-3 py-1.5 lg:px-3.5 text-xs font-bold tracking-wider transition-colors duration-300
                   ${idioma === 'en'
                     ? darkMode ? 'text-white' : 'text-slate-900'
                     : darkMode ? 'text-slate-500' : 'text-slate-400'
