@@ -8,8 +8,38 @@ const Certificates = ({ t, darkMode }) => {
       institucion: "Universidad Gerardo Barrios",
       fecha: "2023 - Presente",
       descripcion: "Formacion en programacion, con énfasis en desarrollo web.",
-      imagen: "/public/UGB_INSTITUCION.jpg"
+      imagen: "/public/UGB_INSTITUCION.jpg",
+      
     },
+
+    {
+      id: 2,
+      titulo: "Desarrollo Web Full Stack",
+      institucion: "Platzi",
+      fecha: "2022 - 2023",
+      descripcion: "Curso completo de desarrollo web, abarcando frontend y backend.",
+      imagen: "/public/UGB_INSTITUCION.jpg",
+    },
+
+    {
+      id: 3,
+      titulo: "Certificación en JavaScript Moderno",
+      institucion: "Platzi",  
+      fecha: "2023",
+      descripcion: "Certificación que avala mis habilidades en JavaScript moderno.",
+      imagen: "/public/UGB_INSTITUCION.jpg",
+    },
+
+    {
+      id: 4,
+      titulo: "Certificación en React.js",
+      institucion: "Platzi",
+      fecha: "2023",
+      descripcion: "Certificación que respalda mis conocimientos en React.js.",
+      imagen: "/public/UGB_INSTITUCION.jpg",
+    }
+
+    
   ];
 
   return (
