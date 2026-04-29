@@ -4,39 +4,39 @@ const Certificates = ({ t, darkMode }) => {
   const certificados = [
     {
       id: 1,
-      titulo: "Ingeniería en Sistemas y Redes (En curso)",
-      institucion: "Universidad Gerardo Barrios",
-      fecha: "2023 - Presente",
-      descripcion: "Formacion en programacion, con énfasis en desarrollo web.",
-      imagen: "/public/UGB_INSTITUCION.jpg",
+      titulo: "Diploma del Curso de Introducción a la Web: Historia y Funcionamiento de Internet",
+      institucion: "Platzi",
+      fecha: "2026",
+      descripcion: "Certifico el dominio de los fundamentos de la arquitectura web, comprendiendo desde la gestión de protocolos de red (HTTP/HTTPS) y sistemas de resolución de nombres (DNS), hasta el ciclo de vida de renderizado en el navegador (DOM, CSSOM y Render Tree).",
+      imagen: "/funcion.png",
       
     },
 
     {
       id: 2,
-      titulo: "Desarrollo Web Full Stack",
-      institucion: "Platzi",
-      fecha: "2022 - 2023",
-      descripcion: "Curso completo de desarrollo web, abarcando frontend y backend.",
-      imagen: "/public/UGB_INSTITUCION.jpg",
+      titulo: "Staff Organizador | FLISOL 2026 | Universidad Gerardo Barrios",
+      institucion: "Universidad Gerardo Barrios",
+      fecha: "2026",
+      descripcion: "Orgulloso de haber formado parte del Staff Organizador del 22° Festival Latinoamericano de Instalación de Software Libre (FLISOL 2026) en la Universidad Gerardo Barrios, campus Usulután.",
+      imagen: "flisol.png",
     },
 
     {
       id: 3,
-      titulo: "Certificación en JavaScript Moderno",
-      institucion: "Platzi",  
-      fecha: "2023",
-      descripcion: "Certificación que avala mis habilidades en JavaScript moderno.",
-      imagen: "/public/UGB_INSTITUCION.jpg",
+      titulo: "Certificación Técnica en Reparación de Motores de Combustión Interna",
+      institucion: "Insaforp",  
+      fecha: "2022",
+      descripcion: "Capacitación especializada en el diagnóstico, mantenimiento y reparación de sistemas de motores de combustión.",
+      imagen: "/insaforp.jpeg",
     },
 
     {
       id: 4,
-      titulo: "Certificación en React.js",
-      institucion: "Platzi",
-      fecha: "2023",
-      descripcion: "Certificación que respalda mis conocimientos en React.js.",
-      imagen: "/public/UGB_INSTITUCION.jpg",
+      titulo: "Especialista en Principios de Arduino",
+      institucion: "Universidad Gerardo Barrios",
+      fecha: "2022",
+      descripcion: "Este proyecto, coordinado por la Facultad de Ciencia y Tecnología de la UGB, me permitió integrar la lógica de programación con el control de componentes electrónicos, sentando las bases para mi transición hacia el desarrollo de software profesional.",
+      imagen: "/ugb.jpeg",
     }
 
     

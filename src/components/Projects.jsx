@@ -1,14 +1,54 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 const portfolioProjects = [
-  {
+   {
     id: 1,
-    category: "App",
-    title: "Tienda Online Móvil",
-    description: "Solución integral de comercio electrónico para dispositivos móviles que permite la gestión automatizada de inventarios y clientes. El sistema garantiza la integridad de la información mediante una arquitectura de persistencia de datos local, optimizando la experiencia de usuario con una interfaz intuitiva y tiempos de respuesta inmediatos.",
-    tech: ["Android Studio", "Java", "SQLite"],
-    image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=800"
-  },
+    category: "Desarrollo Web",
+    title: "Alba's Salon",
+    description: "Enfocado en la digitalización operativa de un salón de belleza. El sistema centraliza la reserva de citas y la venta de productos, respaldado por una base de datos relacional y lógica de servidor construida íntegramente desde cero.",
+    role: "Desarrollador Backend",
+    competencies: "Diseño y Gestión de Base de Datos Relacional, Lógica de Servidor, Integración de Funcionalidades Transaccionales",
+    results: "Implementación exitosa de toda la arquitectura de la base de datos (relaciones, citas, productos) y la lógica interna que hace funcionar el sistema.",
+    tech: ["Python", "Flask", "SQLAlchemy", "SQLite", "HTML/CSS/JS"],
+    image: "/alba.png", 
+    link: "https://github.com/josejimenez20/prograiii-cii"
+},
+{
+    id: 2,
+    category: "Desarrollo Móvil",
+    title: "Marketplace de Vehículos",
+    description: "Aplicación móvil diseñada para digitalizar y facilitar la compra y venta de automóviles. Proporciona a los usuarios un catálogo interactivo y seguro desde sus teléfonos, conectando a vendedores y compradores a través de una experiencia de navegación intuitiva.",
+    role: "Desarrollador Frontend y Backend",
+    competencies: "Desarrollo de Aplicaciones Móviles, Diseño de Experiencia de Usuario, Integración de Lógica de Negocio, Gestión de Datos",
+    results: "Entrega de un producto digital que agiliza la comercialización de vehículos, brindando al cliente final una herramienta accesible, rápida y fácil de utilizar directamente en su dispositivo móvil.",
+    tech: ["Java", "Android Studio", "XML"],
+    image: "/marke.png", 
+    link: "https://github.com/GersonRivas19/Proyecto_Final_Progra.git"
+},
+    {
+    id: 3,
+    category: "Desarrollo Web",
+    title: "Sistema de Gestión Empresarial",
+    description: "Plataforma integral construida desde cero para centralizar la gestión operativa de una empresa. El sistema incluye módulos robustos y seguros para el control de contabilidad (partidas de diario), procesamiento de nóminas y facturación.",
+    role: "Desarrollador Principal",
+    competencies: "Diseño de Arquitectura de Software, Lógica de Negocios (Contabilidad), Desarrollo Backend",
+    results: "Diseño y despliegue de una solución escalable y automatizada, demostrando la capacidad de liderar y ejecutar técnicamente un proyecto de software complejo en su totalidad.",
+    tech: ["PHP", "Laravel", "MySQL", "JavaScript", "Vite", "Blade"],
+    image: "/conta.jpeg", 
+    link: "https://github.com/josejimenez20/sistema-empresarial"
+},
+{
+    id: 4,
+    category: "Desarrollo Web",
+    title: "FLORGAERFRA - Tu Diario Digital de Plantas",
+    description: "Una aplicación creada para los amantes de la naturaleza. Permite llevar un registro detallado del crecimiento de tus plantas, guardar tus especies favoritas y recibir ayuda para cuidarlas mejor, todo guardado de forma segura en la nube.",
+    role: "Desarrollador Backend",
+    competencies: "Creación de aplicaciones completas, Manejo de información segura, Almacenamiento de fotos en internet, Diseño de experiencias fáciles de usar.",
+    results: "Logramos una plataforma donde los usuarios pueden organizar su jardín digital de forma sencilla, permitiéndoles subir fotos de sus avances y acceder a su información desde cualquier lugar.",
+    tech: ["NestJS", "React", "MongoDB", "TypeScript"],
+    image: "/planta.png", 
+    link: "https://github.com/josejimenez20/codetitans7"
+}
 ];
 
 // ─── Iconos ──────────────────────────────────────────────────────
@@ -30,10 +70,31 @@ const FolderIcon = ({ className }) => (
   </svg>
 );
 
+const UserIcon = ({ className }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+  </svg>
+);
+
+const CodeIcon = ({ className }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+  </svg>
+);
+
+const TargetIcon = ({ className }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+);
+
 // ─── Componente Principal ────────────────────────────────────────
 const Projects = ({ t, darkMode }) => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+
+  // Lógica de traducción: Usa los proyectos de traducciones.js si existen, si no usa los locales
+  const proyectosRender = t?.listaProyectos || portfolioProjects;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,7 +112,7 @@ const Projects = ({ t, darkMode }) => {
       ref={sectionRef}
       id="proyectos"
       className={`
-        relative w-full py-28 overflow-hidden transition-colors duration-700
+        relative w-full py-24 overflow-hidden transition-colors duration-700
         ${darkMode ? 'bg-[#0a0a0a]' : 'bg-[#fafbff]'}
       `}
     >
@@ -62,51 +123,50 @@ const Projects = ({ t, darkMode }) => {
         {/* ═══ Encabezado ═══ */}
         <div
           className={`
-            text-center mb-20 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]
+            text-center mb-16 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]
             ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
           `}
         >
           <div className={`
-            inline-flex items-center gap-2 border px-4 py-2 rounded-full
-            text-xs font-bold tracking-widest uppercase mb-6 transition-all duration-700
+            inline-flex items-center gap-2 border px-4 py-1.5 rounded-full
+            text-[11px] font-bold tracking-widest uppercase mb-6 transition-all duration-700
             ${darkMode
               ? 'bg-blue-500/10 border-blue-500/20 text-blue-400'
               : 'bg-blue-50 border-blue-100 text-blue-600'
             }
           `}>
-            <FolderIcon className="w-4 h-4" />
-            Mi Portafolio
+            <FolderIcon className="w-3.5 h-3.5" />
+            {t?.etiqueta || "Casos de Éxito"}
           </div>
 
           <h2 className={`
-            text-3xl md:text-5xl lg:text-6xl font-extrabold mb-5 tracking-tight transition-colors duration-700
+            text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 tracking-tight transition-colors duration-700
             ${darkMode ? 'text-white' : 'text-slate-900'}
           `}>
-            Proyectos{' '}
+            {t?.tituloP1 || "Proyectos "}{' '}
             <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent">
-              Destacados
+              {t?.tituloP2 || "Destacados"}
             </span>
           </h2>
 
           <p className={`
-            max-w-2xl mx-auto text-base md:text-lg leading-relaxed font-medium transition-colors duration-700
+            max-w-2xl mx-auto text-sm md:text-base leading-relaxed font-medium transition-colors duration-700
             ${darkMode ? 'text-slate-400' : 'text-slate-500'}
           `}>
-            Una selección de mis trabajos más recientes. Cada proyecto representa un desafío único y una solución escalable.
+            {t?.descripcion || "Una selección de mis trabajos documentados bajo criterios de excelencia técnica, metodologías ágiles y resultados tangibles."}
           </p>
         </div>
 
         {/* ═══ Grid de Proyectos ═══ */}
-        <div className={`
-          grid grid-cols-1 ${portfolioProjects.length === 1 ? 'max-w-2xl mx-auto' : 'md:grid-cols-2 lg:grid-cols-3'} gap-8
-        `}>
-          {portfolioProjects.map((project, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {proyectosRender.map((project, index) => (
             <ProjectCard
               key={project.id}
               project={project}
               index={index}
               isVisible={isVisible}
               darkMode={darkMode}
+              t={t}
             />
           ))}
         </div>
@@ -114,7 +174,7 @@ const Projects = ({ t, darkMode }) => {
         {/* ═══ Enlace a GitHub ═══ */}
         <div
           className={`
-            mt-20 text-center transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] delay-500
+            mt-16 text-center transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] delay-500
             ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
           `}
         >
@@ -124,7 +184,7 @@ const Projects = ({ t, darkMode }) => {
             rel="noopener noreferrer"
             className={`
               group relative inline-flex items-center gap-3 font-semibold
-              py-4 px-8 rounded-2xl transition-all duration-500
+              py-3 px-6 rounded-xl transition-all duration-500
               shadow-lg hover:shadow-xl hover:-translate-y-1 active:translate-y-0 overflow-hidden
               ${darkMode
                 ? 'bg-white text-black hover:bg-slate-100 shadow-white/10 hover:shadow-white/20'
@@ -133,8 +193,8 @@ const Projects = ({ t, darkMode }) => {
             `}
           >
             <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-            <GithubIcon className="w-5 h-5 relative z-10" />
-            <span className="relative z-10">Ver más en GitHub</span>
+            <GithubIcon className="w-4 h-4 relative z-10" />
+            <span className="relative z-10 text-sm">{t?.botonGithub || "Ver todos en GitHub"}</span>
             <ArrowUpRight className="w-4 h-4 relative z-10 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </div>
@@ -144,79 +204,61 @@ const Projects = ({ t, darkMode }) => {
 };
 
 // ─── Tarjeta de Proyecto ─────────────────────────────────────────
-const ProjectCard = ({ project, index, isVisible, darkMode }) => {
+const ProjectCard = ({ project, index, isVisible, darkMode, t }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{ transitionDelay: `${200 + index * 150}ms` }}
+      style={{ transitionDelay: `${200 + index * 100}ms` }}
       className={`
-        group relative rounded-3xl overflow-hidden border flex flex-col
-        transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]
-        hover:shadow-2xl hover:-translate-y-2
+        group relative rounded-2xl overflow-hidden border flex flex-col
+        transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
+        hover:shadow-xl hover:-translate-y-1.5
         ${darkMode
-          ? 'bg-white/[0.03] border-white/[0.06] hover:border-blue-500/30 hover:shadow-blue-500/5'
-          : 'bg-white border-slate-200/80 hover:shadow-blue-500/10 hover:border-blue-200/50'
+          ? 'bg-white/[0.02] border-white/[0.08] hover:border-blue-500/40 hover:shadow-blue-500/5'
+          : 'bg-white border-slate-200 hover:border-blue-300 hover:shadow-blue-500/10'
         }
-        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}
+        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
       `}
     >
       {/* ═══ Imagen ═══ */}
       <div className={`
-        relative h-56 overflow-hidden
+        relative h-40 overflow-hidden flex-shrink-0
         ${darkMode ? 'bg-white/[0.02]' : 'bg-slate-100'}
       `}>
         <img
           src={project.image}
           alt={project.title}
           className={`
-            w-full h-full object-cover transition-all duration-700 ease-out
-            ${isHovered ? 'scale-110 blur-[1px]' : 'scale-100'}
-            ${darkMode ? 'brightness-75' : 'brightness-100'}
+            w-full h-full object-cover transition-transform duration-700 ease-out
+            ${isHovered ? 'scale-105' : 'scale-100'}
+            ${darkMode ? 'brightness-75 group-hover:brightness-90' : 'brightness-100'}
           `}
         />
 
-        <div
-          className={`
-            absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/20 to-transparent
-            transition-opacity duration-500
-            ${isHovered ? 'opacity-100' : darkMode ? 'opacity-40' : 'opacity-0'}
-          `}
-        />
+        {/* Overlay sutil */}
+        <div className={`absolute inset-0 ring-1 ring-inset ${darkMode ? 'ring-white/10' : 'ring-black/5'} rounded-2xl`}></div>
 
         {/* Categoría */}
-        <div className="absolute top-4 left-4 z-10">
+        <div className="absolute top-3 left-3 z-10">
           <span className={`
-            inline-flex items-center gap-1.5 backdrop-blur-xl px-4 py-1.5
-            rounded-xl text-xs font-bold shadow-lg border
+            px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider backdrop-blur-md border
             ${darkMode
-              ? 'bg-white/10 text-white border-white/10 shadow-black/20'
-              : 'bg-white/95 text-slate-700 border-white/50 shadow-slate-900/5'
+              ? 'bg-black/50 text-blue-300 border-white/10 shadow-black/20'
+              : 'bg-white/90 text-blue-700 border-blue-100 shadow-slate-900/5'
             }
           `}>
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
             {project.category}
           </span>
-        </div>
-
-        {/* Número */}
-        <div
-          className={`
-            absolute bottom-4 right-4 z-10 text-5xl font-black text-white/20
-            transition-all duration-500
-            ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
-          `}
-        >
-          {String(project.id).padStart(2, '0')}
         </div>
       </div>
 
       {/* ═══ Contenido ═══ */}
-      <div className="p-7 flex flex-col flex-grow">
+      <div className="p-6 flex flex-col flex-grow">
         <h3 className={`
-          text-xl font-bold mb-3 transition-colors duration-300
+          text-lg font-bold mb-2 transition-colors duration-300
           ${darkMode
             ? 'text-white group-hover:text-blue-400'
             : 'text-slate-900 group-hover:text-blue-600'
@@ -226,15 +268,37 @@ const ProjectCard = ({ project, index, isVisible, darkMode }) => {
         </h3>
 
         <p className={`
-          text-sm leading-relaxed mb-6 flex-grow transition-colors duration-700
+          text-[13px] leading-relaxed mb-5 flex-grow transition-colors duration-700
           ${darkMode ? 'text-slate-400' : 'text-slate-500'}
         `}>
           {project.description}
         </p>
 
+        {/* ═══ Requerimientos de Rúbrica ═══ */}
+        <div className="space-y-2.5 mb-5 mt-auto">
+          <div className="flex items-start gap-2">
+            <UserIcon className={`w-4 h-4 flex-shrink-0 mt-0.5 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+            <p className={`text-[12px] leading-tight ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
+              <span className="font-bold block mb-0.5">{t?.rolLabel || "Rol Desempeñado:"}</span> {project.role}
+            </p>
+          </div>
+          <div className="flex items-start gap-2">
+            <CodeIcon className={`w-4 h-4 flex-shrink-0 mt-0.5 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+            <p className={`text-[12px] leading-tight ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
+              <span className="font-bold block mb-0.5">{t?.competenciasLabel || "Competencias Técnicas:"}</span> {project.competencies}
+            </p>
+          </div>
+          <div className="flex items-start gap-2">
+            <TargetIcon className={`w-4 h-4 flex-shrink-0 mt-0.5 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+            <p className={`text-[12px] leading-tight ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
+              <span className="font-bold block mb-0.5">{t?.resultadosLabel || "Resultados:"}</span> {project.results}
+            </p>
+          </div>
+        </div>
+
         {/* Separador */}
         <div className={`
-          w-full h-px mb-5 transition-colors duration-700
+          w-full h-px mb-4 transition-colors duration-700
           ${darkMode
             ? 'bg-gradient-to-r from-transparent via-white/[0.06] to-transparent'
             : 'bg-gradient-to-r from-transparent via-slate-200 to-transparent'
@@ -242,23 +306,39 @@ const ProjectCard = ({ project, index, isVisible, darkMode }) => {
         `} />
 
         {/* Tecnologías */}
-        <div className="flex flex-wrap gap-2">
-          {project.tech.map((item, i) => (
-            <span
-              key={i}
-              className={`
-                inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5
-                rounded-lg border transition-all duration-300
-                ${darkMode
-                  ? 'bg-white/[0.04] text-slate-400 border-white/[0.06] group-hover:border-blue-500/20 group-hover:bg-blue-500/[0.06] group-hover:text-blue-400'
-                  : 'bg-slate-50 text-slate-600 border-slate-100 group-hover:border-blue-100 group-hover:bg-blue-50/50 group-hover:text-blue-700'
-                }
-              `}
-            >
-              <span className="w-1 h-1 rounded-full bg-current opacity-40" />
-              {item}
-            </span>
-          ))}
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-wrap gap-1.5">
+            {project.tech.map((item, i) => (
+              <span
+                key={i}
+                className={`
+                  px-2 py-0.5 rounded text-[10px] font-semibold transition-colors
+                  ${darkMode
+                    ? 'bg-white/5 text-slate-400 group-hover:bg-blue-500/10 group-hover:text-blue-300'
+                    : 'bg-slate-100 text-slate-600 group-hover:bg-blue-50 group-hover:text-blue-700'
+                  }
+                `}
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+
+          {/* Botón de Evidencia */}
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`
+              w-full py-2 rounded-xl text-[13px] font-bold text-center transition-all duration-300
+              ${darkMode
+                ? 'bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-500/30'
+                : 'bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 border border-blue-100'
+              }
+            `}
+          >
+            {t?.botonEvidencia || "Ver Evidencia"}
+          </a>
         </div>
       </div>
 

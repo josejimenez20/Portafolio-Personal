@@ -31,25 +31,26 @@ const ArrowUpIcon = ({ className }) => (
   </svg>
 );
 
-// ─── Datos ───────────────────────────────────────────────────────
+// ─── Datos Fijos ──────────────────────────────────────────────────
 const SOCIAL_LINKS = [
   { name: 'GitHub', href: 'https://github.com/josejimenez20', icon: GithubIcon },
   { name: 'LinkedIn', href: 'https://www.linkedin.com/in/josé-heinar-jiménez-reyes-0597aa3b2', icon: LinkedInIcon },
   { name: 'Email', href: 'mailto:jimenezheinar8@gmail.com', icon: MailIcon },
 ];
 
-const NAV_LINKS = [
-  { label: 'Inicio', href: '#inicio' },
-  { label: 'Sobre mí', href: '#sobre-mi' },
-  { label: 'Habilidades', href: '#habilidades' },
-  { label: 'Proyectos', href: '#proyectos' },
-];
-
 // ─── Componente Principal ────────────────────────────────────────
-const Footer = ({ darkMode, openModal }) => {
+const Footer = ({ t, darkMode, openModal }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const footerRef = useRef(null);
+
+  // Mapeamos los enlaces de navegación con las traducciones
+  const NAV_LINKS = [
+    { label: t?.navInicio || 'Inicio', href: '#inicio' },
+    { label: t?.navSobreMi || 'Sobre mí', href: '#sobre-mi' },
+    { label: t?.navHabilidades || 'Habilidades', href: '#habilidades' },
+    { label: t?.navProyectos || 'Proyectos', href: '#proyectos' },
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -119,20 +120,20 @@ const Footer = ({ darkMode, openModal }) => {
             <div className="max-w-xl">
               <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6">
                 <SendIcon className="w-3.5 h-3.5" />
-                Contacto
+                {t?.contactoBadge || "Contacto"}
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4 tracking-tight leading-[1.1]">
-                ¿Listo para comenzar
+                {t?.tituloP1 || "¿Listo para comenzar"}
                 <br />
                 <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent">
-                  un proyecto?
+                  {t?.tituloP2 || "un proyecto?"}
                 </span>
               </h2>
               <p className={`
                 text-base md:text-lg leading-relaxed max-w-md
                 ${darkMode ? 'text-slate-500' : 'text-slate-400'}
               `}>
-                Si tienes una idea en mente o simplemente quieres saludar, ¡no dudes en contactarme!
+                {t?.descripcionCta || "Si tienes una idea en mente o simplemente quieres saludar, ¡no dudes en contactarme!"}
               </p>
             </div>
 
@@ -144,7 +145,7 @@ const Footer = ({ darkMode, openModal }) => {
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
               <MailIcon className="w-5 h-5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
-              <span className="relative z-10">Envíame un correo</span>
+              <span className="relative z-10">{t?.botonCorreo || "Envíame un correo"}</span>
               <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">→</span>
             </button>
           </div>
@@ -169,12 +170,11 @@ const Footer = ({ darkMode, openModal }) => {
               text-sm leading-relaxed mb-6
               ${darkMode ? 'text-slate-600' : 'text-slate-500'}
             `}>
-              Desarrollador apasionado por crear experiencias digitales excepcionales y soluciones innovadoras.
+              {t?.descripcionPerfil || "Desarrollador apasionado por crear experiencias digitales excepcionales y soluciones innovadoras."}
             </p>
 
             <div className="flex items-center gap-3">
               {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => {
-                // Guardamos las clases en una variable para no repetir código
                 const iconClasses = `
                   group p-2.5 rounded-xl border transition-all duration-300
                   hover:text-blue-400 hover:border-blue-500/30 hover:bg-blue-500/10 hover:-translate-y-1
@@ -184,7 +184,6 @@ const Footer = ({ darkMode, openModal }) => {
                   }
                 `;
 
-                // Si es el icono de Email, usamos un botón que llama a openModal
                 if (name === 'Email') {
                   return (
                     <button
@@ -198,7 +197,6 @@ const Footer = ({ darkMode, openModal }) => {
                   );
                 }
 
-                // Si es GitHub o LinkedIn, dejamos el enlace normal
                 return (
                   <a
                     key={name}
@@ -221,7 +219,7 @@ const Footer = ({ darkMode, openModal }) => {
               text-xs font-bold uppercase tracking-[0.2em] mb-5
               ${darkMode ? 'text-slate-500' : 'text-slate-400'}
             `}>
-              Navegación
+              {t?.tituloNav || "Navegación"}
             </h3>
             <ul className="space-y-3">
               {NAV_LINKS.map(({ label, href }) => (
@@ -248,7 +246,7 @@ const Footer = ({ darkMode, openModal }) => {
               text-xs font-bold uppercase tracking-[0.2em] mb-5
               ${darkMode ? 'text-slate-500' : 'text-slate-400'}
             `}>
-              Contacto
+              {t?.tituloContacto || "Contacto"}
             </h3>
             <ul className="space-y-3">
               <li>
@@ -292,7 +290,7 @@ const Footer = ({ darkMode, openModal }) => {
             text-xs font-medium tracking-wide
             ${darkMode ? 'text-slate-700' : 'text-slate-600'}
           `}>
-            © {new Date().getFullYear()} Heinar Jimenez. Todos los derechos reservados.
+            © {new Date().getFullYear()} José Heinar Jiménez. {t?.derechos || "Todos los derechos reservados."}
           </p>
         </div>
       </div>
